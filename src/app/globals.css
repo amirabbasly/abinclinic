@@ -1,26 +1,162 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* پالت کلینیک آبین */
+  --color-cream: #faf6f0;
+  --color-ivory: #fffdf9;
+  --color-ink: #2a1b21;
+  --color-ink-soft: #5d4a51;
+  --color-rose: #b5566f;
+  --color-rose-deep: #8e3d55;
+  --color-rose-soft: #f3dfe3;
+  --color-blush: #f9eef0;
+  --color-gold: #c2934f;
+  --color-gold-soft: #f0e2cd;
+  --color-mint: #7fb69a;
+
+  --font-sans: "Vazirmatn", "Vazirmatn FD", "Segoe UI", Tahoma, Arial, sans-serif;
+
+  --shadow-soft: 0 10px 40px -12px rgba(90, 40, 55, 0.18);
+  --shadow-card: 0 4px 24px -6px rgba(90, 40, 55, 0.12);
+  --shadow-glow: 0 0 0 6px rgba(181, 86, 111, 0.12);
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-float-slow: float 9s ease-in-out infinite;
+  --animate-pulse-ring: pulse-ring 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-marquee: marquee 30s linear infinite;
+  --animate-blink: blink 1.2s ease-in-out infinite;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.45); }
+  70% { box-shadow: 0 0 0 14px rgba(37, 211, 102, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+@keyframes marquee {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+@keyframes blink {
+  0%, 100% { opacity: 0.25; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-2px); }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-rose);
+  color: #fff;
+}
+
+/* اسکرول‌بار ظریف */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--color-cream); }
+::-webkit-scrollbar-thumb {
+  background: #d9bfc6;
+  border-radius: 999px;
+  border: 2px solid var(--color-cream);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--color-rose); }
+
+/* ظاهرشدن هنگام اسکرول */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* گرادیان متن طلایی */
+.text-golden {
+  background: linear-gradient(120deg, #b5566f 10%, #c2934f 50%, #b5566f 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* شیشه‌ای */
+.glass {
+  background: rgba(255, 253, 249, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* نویز ظریف پس‌زمینه */
+.bg-grain {
+  background-image: radial-gradient(rgba(181, 86, 111, 0.06) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* تصویر «قبل» شبیه‌سازی‌شده با فیلتر */
+.img-before-sim {
+  filter: saturate(0.58) brightness(0.86) contrast(0.9) sepia(0.18);
+}
+
+/* خط زیر عنوان‌ها */
+.deco-line {
+  position: relative;
+}
+.deco-line::after {
+  content: "";
+  position: absolute;
+  bottom: -12px;
+  right: 50%;
+  transform: translateX(50%);
+  width: 64px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(to left, var(--color-rose), var(--color-gold));
+}
+
+/* حالت منو کشویی */
+.drawer {
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ورود پیام چت */
+.chat-bubble-in {
+  animation: bubble-in 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes bubble-in {
+  from { opacity: 0; transform: translateY(10px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ردیف لوگو متحرک */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: var(--animate-marquee);
+}
+.marquee-track:hover { animation-play-state: paused; }
+
+/* اسلایدر قبل/بعد */
+.ba-handle {
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

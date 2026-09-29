@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#b5566f"/>
+      <stop offset="1" stop-color="#8e3d55"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="url(#g)"/>
+  <text x="32" y="42" font-family="Vazirmatn, Tahoma, sans-serif" font-size="28" font-weight="800" fill="#fff" text-anchor="middle">آب</text>
+  <circle cx="49" cy="15" r="6" fill="#c2934f"/>
+  <path d="M46.5 15l1.8 1.8 3.2-3.4" stroke="#fff" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
